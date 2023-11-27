@@ -1,4 +1,4 @@
-server.port: 8081
+server.port: 8083
 
 #logging.level.org.springframework: debug
 
@@ -63,6 +63,36 @@ spring.cloud.stream.bindings.referenceFpsSortCode2-in-0.destination: reference-f
 spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode2.applicationId: reference-fps-sort-codes-2
 spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode2-in-0.consumer.materializedAs: reference-fps-sort-codes-store-2
 spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode2-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+
+spring.cloud.stream.bindings.referenceFpsSortCode3-in-0.destination: reference-fps-sort-codes-3
+spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode3.applicationId: reference-fps-sort-codes-3
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode3-in-0.consumer.materializedAs: reference-fps-sort-codes-store-3
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode3-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+
+spring.cloud.stream.bindings.referenceFpsSortCode4-in-0.destination: reference-fps-sort-codes-4
+spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode4.applicationId: reference-fps-sort-codes-4
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode4-in-0.consumer.materializedAs: reference-fps-sort-codes-store-4
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode4-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+
+spring.cloud.stream.bindings.referenceFpsSortCode5-in-0.destination: reference-fps-sort-codes-5
+spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode5.applicationId: reference-fps-sort-codes-5
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode5-in-0.consumer.materializedAs: reference-fps-sort-codes-store-5
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode5-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+
+spring.cloud.stream.bindings.referenceFpsSortCode6-in-0.destination: reference-fps-sort-codes-6
+spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode6.applicationId: reference-fps-sort-codes-6
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode6-in-0.consumer.materializedAs: reference-fps-sort-codes-store-6
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode6-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+
+spring.cloud.stream.bindings.referenceFpsSortCode7-in-0.destination: reference-fps-sort-codes-7
+spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode7.applicationId: reference-fps-sort-codes-7
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode7-in-0.consumer.materializedAs: reference-fps-sort-codes-store-7
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode7-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+
+spring.cloud.stream.bindings.referenceFpsSortCode8-in-0.destination: reference-fps-sort-codes-8
+spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode8.applicationId: reference-fps-sort-codes-8
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode8-in-0.consumer.materializedAs: reference-fps-sort-codes-store-8
+spring.cloud.stream.kafka.streams.bindings.referenceFpsSortCode8-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
 
 spring.output.ansi.enabled: ALWAYS
 

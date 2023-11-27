@@ -4,15 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FPSPayment {
+public class SettlementCycle {
 
-    private String id;
-    private String accountNo;
-    private String sortCode;
-    private String amount;
+    private String settlementDate;
+    private String settlementCycle;
 }

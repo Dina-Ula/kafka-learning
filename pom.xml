@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.5</version>
+        <version>3.1.6</version>
         <relativePath/>
     </parent>
 
@@ -18,8 +18,11 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>core</module>
         <module>producer</module>
         <module>consumer</module>
+        <module>dedupe</module>
+        <module>consumer-db-kafka-template</module>
     </modules>
 
     <properties>

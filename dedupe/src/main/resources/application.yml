@@ -1,0 +1,64 @@
+server.port: 8082
+
+#logging.level.org.springframework: debug
+
+spring.application.name: dedup
+
+#####  Admin Token #####
+
+# Confluent Cloud Common configuration
+spring.kafka.properties.sasl.mechanism: PLAIN
+spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='RPJXOK3O3ONHZ64Y' password='pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO';
+spring.kafka.properties.security.protocol: SASL_SSL
+
+# Confluent Cloud Schema Registry configuration
+#spring.kafka.properties.basic.auth.credentials.source: USER_INFO
+#spring.kafka.properties.schema.registry.basic.auth.user.info: RPJXOK3O3ONHZ64Y:pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO
+#spring.kafka.properties.schema.registry.url: https://psrc-4j8q8.europe-west3.gcp.confluent.cloud
+
+##### Admin Token #####
+
+#####  Read-Only SortCode1 Token #####
+
+#spring.kafka.properties.sasl.mechanism: PLAIN
+#spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+#spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='3CBM27PABNOLFT2I' password='bohZYsGB0Hyy7DNsGRq4lfZY6FGqLEJJHZked8mgwnUaBGYSW3eNOG+nhrHrbw0m';
+#spring.kafka.properties.security.protocol: SASL_SSL
+
+#####  Read-Only SortCode1 Token #####
+
+#spring.cloud.function.definition: deDupeProducerV1;deDupeConsumerV1
+spring.cloud.function.definition: deDupeConsumerV2
+
+spring.cloud.stream.bindings.deDupeProducerV1-in-0.destination: fps-payment-inbound
+spring.cloud.stream.bindings.deDupeProducerV1-out-0.destination: settlement-cycle
+spring.cloud.stream.kafka.streams.bindings.deDupeProducerV1-in-0.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
+spring.cloud.stream.kafka.streams.bindings.deDupeProducerV1-out-0.consumer.valueSerde: com.lbg.serdes.SettlementCycleSerde
+spring.cloud.stream.kafka.streams.binder.functions.deDupeProducerV1.applicationId: deDupeProducerV1
+
+spring.cloud.stream.bindings.deDupeConsumerV1-in-0.destination: fps-payment-outbound
+spring.cloud.stream.bindings.deDupeConsumerV1-in-1.destination: settlement-cycle
+spring.cloud.stream.kafka.streams.bindings.deDupeConsumerV1-in-0.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
+spring.cloud.stream.kafka.streams.bindings.deDupeConsumerV1-in-1.consumer.valueSerde: com.lbg.serdes.SettlementCycleSerde
+spring.cloud.stream.kafka.streams.bindings.deDupeConsumerV1-in-1.consumer.materializedAs: settlement-cycle
+spring.cloud.stream.kafka.streams.binder.functions.deDupeConsumerV1.applicationId: deDupeConsumerV1
+
+spring.cloud.stream.bindings.deDupeProducerV2-in-0.destination: fps-payment-inbound
+spring.cloud.stream.bindings.deDupeProducerV2-out-0.destination: settlement-cycle-dedupe
+spring.cloud.stream.kafka.streams.bindings.deDupeProducerV2-in-0.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
+spring.cloud.stream.kafka.streams.bindings.deDupeProducerV2-out-0.consumer.valueSerde: com.lbg.serdes.SettlementCycleSerde
+spring.cloud.stream.kafka.streams.binder.functions.deDupeProducerV2.applicationId: deDupeProducerV2
+
+spring.cloud.stream.bindings.deDupeConsumerV2-in-0.destination: fps-payment-outbound
+spring.cloud.stream.bindings.deDupeConsumerV2-in-1.destination: settlement-cycle-dedupe
+spring.cloud.stream.kafka.streams.bindings.deDupeConsumerV2-in-0.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
+spring.cloud.stream.kafka.streams.bindings.deDupeConsumerV2-in-1.consumer.valueSerde: com.lbg.serdes.SettlementCycleSerde
+spring.cloud.stream.kafka.streams.bindings.deDupeConsumerV2-in-1.consumer.materializedAs: settlement-cycle-dedupe
+spring.cloud.stream.kafka.streams.binder.functions.deDupeConsumerV2.applicationId: deDupeConsumerV2
+
+spring.output.ansi.enabled: ALWAYS
+
+logging.pattern.console: "%clr(%d{HH:mm:ss.SSS}){blue} %clr(---){faint} %clr([%15.15t]){yellow} %clr(:){red} %clr(%m){faint}%n"
+
+management.endpoints.web.exposure.include: "*"

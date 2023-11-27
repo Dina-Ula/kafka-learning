@@ -2,7 +2,6 @@ package com.lbg.serdes;
 
 import com.lbg.model.Event;
 import com.lbg.model.FPSPayment;
-import com.lbg.model.ReferenceFPSSortCode;
 import lombok.NoArgsConstructor;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;

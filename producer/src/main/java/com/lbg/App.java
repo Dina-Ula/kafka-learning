@@ -16,13 +16,21 @@ import java.util.function.Supplier;
 @SpringBootApplication
 public class App {
 
-    private static final boolean GENERATE_SORT_CODES = true;
+    private static final boolean GENERATE_SORT_CODES = false;
 
-    private static final boolean GENERATE_PAYMENTS = false;
+    private static final boolean GENERATE_PAYMENTS = true;
+
+    private static final boolean GENERATE_PAYMENTS_INBOUND = false;
+
+    private static final boolean GENERATE_PAYMENTS_OUTBOUND = false;
 
     LinkedList<Event<ReferenceFPSSortCode>> referenceFPSSortCodes = new LinkedList<>(generateReferenceFPSSortCodes());
 
     LinkedList<Event<FPSPayment>> fpsPayments = new LinkedList<>(generateFPSPayments());
+
+    LinkedList<Event<FPSPayment>> fpsPaymentsInbound = new LinkedList<>(generateFPSPaymentsInbound());
+
+    LinkedList<Event<FPSPayment>> fpsPaymentsOutbound = new LinkedList<>(generateFPSPaymentsOutbound());
 
     public static List<Event<ReferenceFPSSortCode>> generateReferenceFPSSortCodes() {
 
@@ -42,10 +50,35 @@ public class App {
         List<Event<FPSPayment>> list = new ArrayList<>();
 
         if (GENERATE_PAYMENTS) {
-            /*for (int i = 0; i < 200000; i++) {
-                list.add(Event.of(new FPSPayment(UUID.randomUUID().toString(), getRandomAccountNo(), getRandomSortCode(), getRandomAmount())));
-            }*/
-            list.add(Event.of(new FPSPayment(UUID.randomUUID().toString(), getRandomAccountNo(), "107920", getRandomAmount())));
+            for (int i = 0; i < 200000; i++) {
+                list.add(Event.of(new FPSPayment(UUID.randomUUID().toString(), getRandomAccountNo(), getRandomSortCode(), getRandomAmount(), "31-12-2023", "1")));
+            }
+        }
+
+        return list;
+    }
+
+    public static List<Event<FPSPayment>> generateFPSPaymentsInbound() {
+
+        List<Event<FPSPayment>> list = new ArrayList<>();
+
+        if (GENERATE_PAYMENTS_INBOUND) {
+            for (int i = 0; i < 200000; i++) {
+                list.add(Event.of(new FPSPayment(UUID.randomUUID().toString(), getRandomAccountNo(), getRandomSortCode(), getRandomAmount(), "23-11-2023", "1")));
+            }
+        }
+
+        return list;
+    }
+
+    public static List<Event<FPSPayment>> generateFPSPaymentsOutbound() {
+
+        List<Event<FPSPayment>> list = new ArrayList<>();
+
+        if (GENERATE_PAYMENTS_OUTBOUND) {
+            for (int i = 0; i < 200000; i++) {
+                list.add(Event.of(new FPSPayment(UUID.randomUUID().toString(), getRandomAccountNo(), getRandomSortCode(), getRandomAmount(), "23-11-2023", "1")));
+            }
         }
 
         return list;
@@ -64,7 +97,7 @@ public class App {
 
         Random r = new Random();
         int low = 100000;
-        int high = 305000;
+        int high = 1000000;
 
         return String.valueOf(r.nextInt(high - low) + low);
     }
@@ -106,102 +139,6 @@ public class App {
     }
 
     @Bean
-    public Supplier<Message<Event<ReferenceFPSSortCode>>> referenceFPSSortCodesSupplier3() {
-        return () -> {
-            if (referenceFPSSortCodes.peek() != null) {
-                Message<Event<ReferenceFPSSortCode>> o = MessageBuilder
-                        .withPayload(referenceFPSSortCodes.peek())
-                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(referenceFPSSortCodes.poll()).getData().getSortCode())
-                        .build();
-                System.out.println("Reference FPS Sort Codes: " + o.getPayload());
-                return o;
-            } else {
-                return null;
-            }
-        };
-    }
-
-    @Bean
-    public Supplier<Message<Event<ReferenceFPSSortCode>>> referenceFPSSortCodesSupplier4() {
-        return () -> {
-            if (referenceFPSSortCodes.peek() != null) {
-                Message<Event<ReferenceFPSSortCode>> o = MessageBuilder
-                        .withPayload(referenceFPSSortCodes.peek())
-                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(referenceFPSSortCodes.poll()).getData().getSortCode())
-                        .build();
-                System.out.println("Reference FPS Sort Codes: " + o.getPayload());
-                return o;
-            } else {
-                return null;
-            }
-        };
-    }
-
-    @Bean
-    public Supplier<Message<Event<ReferenceFPSSortCode>>> referenceFPSSortCodesSupplier5() {
-        return () -> {
-            if (referenceFPSSortCodes.peek() != null) {
-                Message<Event<ReferenceFPSSortCode>> o = MessageBuilder
-                        .withPayload(referenceFPSSortCodes.peek())
-                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(referenceFPSSortCodes.poll()).getData().getSortCode())
-                        .build();
-                System.out.println("Reference FPS Sort Codes: " + o.getPayload());
-                return o;
-            } else {
-                return null;
-            }
-        };
-    }
-
-    @Bean
-    public Supplier<Message<Event<ReferenceFPSSortCode>>> referenceFPSSortCodesSupplier6() {
-        return () -> {
-            if (referenceFPSSortCodes.peek() != null) {
-                Message<Event<ReferenceFPSSortCode>> o = MessageBuilder
-                        .withPayload(referenceFPSSortCodes.peek())
-                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(referenceFPSSortCodes.poll()).getData().getSortCode())
-                        .build();
-                System.out.println("Reference FPS Sort Codes: " + o.getPayload());
-                return o;
-            } else {
-                return null;
-            }
-        };
-    }
-
-    @Bean
-    public Supplier<Message<Event<ReferenceFPSSortCode>>> referenceFPSSortCodesSupplier7() {
-        return () -> {
-            if (referenceFPSSortCodes.peek() != null) {
-                Message<Event<ReferenceFPSSortCode>> o = MessageBuilder
-                        .withPayload(referenceFPSSortCodes.peek())
-                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(referenceFPSSortCodes.poll()).getData().getSortCode())
-                        .build();
-                System.out.println("Reference FPS Sort Codes: " + o.getPayload());
-                return o;
-            } else {
-                return null;
-            }
-        };
-    }
-
-    @Bean
-    public Supplier<Message<Event<ReferenceFPSSortCode>>> referenceFPSSortCodesSupplier8() {
-        return () -> {
-            if (referenceFPSSortCodes.peek() != null) {
-                Message<Event<ReferenceFPSSortCode>> o = MessageBuilder
-                        .withPayload(referenceFPSSortCodes.peek())
-                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(referenceFPSSortCodes.poll()).getData().getSortCode())
-                        .build();
-                System.out.println("Reference FPS Sort Codes: " + o.getPayload());
-                return o;
-            } else {
-                return null;
-            }
-        };
-    }
-
-    @Bean
     public Supplier<Message<Event<FPSPayment>>> fpsPaymentSupplier() {
         return () -> {
             if (fpsPayments.peek() != null) {
@@ -210,6 +147,38 @@ public class App {
                         .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(fpsPayments.poll()).getData().getId())
                         .build();
                 System.out.println("FPS Payment Sort Codes: " + o.getPayload());
+                return o;
+            } else {
+                return null;
+            }
+        };
+    }
+
+    @Bean
+    public Supplier<Message<Event<FPSPayment>>> fpsPaymentInboundSupplier() {
+        return () -> {
+            if (fpsPaymentsInbound.peek() != null) {
+                Message<Event<FPSPayment>> o = MessageBuilder
+                        .withPayload(fpsPaymentsInbound.peek())
+                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(fpsPaymentsInbound.poll()).getData().getId())
+                        .build();
+                System.out.println("FPS Payment Inbound: " + o.getPayload());
+                return o;
+            } else {
+                return null;
+            }
+        };
+    }
+
+    @Bean
+    public Supplier<Message<Event<FPSPayment>>> fpsPaymentOutboundSupplier() {
+        return () -> {
+            if (fpsPaymentsOutbound.peek() != null) {
+                Message<Event<FPSPayment>> o = MessageBuilder
+                        .withPayload(fpsPaymentsOutbound.peek())
+                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(fpsPaymentsOutbound.poll()).getData().getId())
+                        .build();
+                System.out.println("FPS Payment Outbound: " + o.getPayload());
                 return o;
             } else {
                 return null;

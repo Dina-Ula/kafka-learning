@@ -11,7 +11,7 @@ spring.kafka.properties.schema.registry.basic.auth.user.info: RPJXOK3O3ONHZ64Y:p
 spring.kafka.properties.schema.registry.url: https://psrc-4j8q8.europe-west3.gcp.confluent.cloud
 
 #spring.cloud.function.definition: referenceFPSSortCodesSupplier1;referenceFPSSortCodesSupplier2;referenceFPSSortCodesSupplier3;referenceFPSSortCodesSupplier4;referenceFPSSortCodesSupplier5;referenceFPSSortCodesSupplier6;referenceFPSSortCodesSupplier7;referenceFPSSortCodesSupplier8;fpsPaymentSupplier
-spring.cloud.function.definition: referenceFPSSortCodesSupplier1;fpsPaymentSupplier
+spring.cloud.function.definition: referenceFPSSortCodesSupplier1;fpsPaymentSupplier;fpsPaymentInboundSupplier;fpsPaymentOutboundSupplier
 
 spring.cloud.stream.bindings.referenceFPSSortCodesSupplier1-out-0.destination: reference-fps-sort-codes-1
 spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier1-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -19,26 +19,14 @@ spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier1-out-0.producer
 spring.cloud.stream.bindings.referenceFPSSortCodesSupplier2-out-0.destination: reference-fps-sort-codes-2
 spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier2-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
 
-spring.cloud.stream.bindings.referenceFPSSortCodesSupplier3-out-0.destination: reference-fps-sort-codes-3
-spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier3-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
-
-spring.cloud.stream.bindings.referenceFPSSortCodesSupplier4-out-0.destination: reference-fps-sort-codes-4
-spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier4-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
-
-spring.cloud.stream.bindings.referenceFPSSortCodesSupplier5-out-0.destination: reference-fps-sort-codes-5
-spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier5-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
-
-spring.cloud.stream.bindings.referenceFPSSortCodesSupplier6-out-0.destination: reference-fps-sort-codes-6
-spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier6-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
-
-spring.cloud.stream.bindings.referenceFPSSortCodesSupplier7-out-0.destination: reference-fps-sort-codes-7
-spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier7-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
-
-spring.cloud.stream.bindings.referenceFPSSortCodesSupplier8-out-0.destination: reference-fps-sort-codes-8
-spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier8-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
-
 spring.cloud.stream.bindings.fpsPaymentSupplier-out-0.destination: fps-payment
 spring.cloud.stream.kafka.bindings.fpsPaymentSupplier-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+
+spring.cloud.stream.bindings.fpsPaymentInboundSupplier-out-0.destination: fps-payment-inbound
+spring.cloud.stream.kafka.bindings.fpsPaymentInboundSupplier-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+
+spring.cloud.stream.bindings.fpsPaymentOutboundSupplier-out-0.destination: fps-payment-outbound
+spring.cloud.stream.kafka.bindings.fpsPaymentOutboundSupplier-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
 
 spring.output.ansi.enabled: ALWAYS
 

@@ -22,6 +22,12 @@ public class VanillaApp {
         properties.setProperty("schema.registry.basic.auth.user.info", "RPJXOK3O3ONHZ64Y:pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO");
         properties.setProperty("schema.registry.url", "https://psrc-4j8q8.europe-west3.gcp.confluent.cloud");
 
+
+        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all");
+        properties.setProperty(ProducerConfig.RETRIES_CONFIG, "3");
+        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "1");
+        properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true");
+
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
@@ -29,10 +35,18 @@ public class VanillaApp {
 
         Producer<String, String> producer = new KafkaProducer<>(properties);
 
-        for (int i = 100000; i < 300000; i++) {
-
+        /*for (int i = 100000; i <= 5000000; i++) {
             producer.send(new ProducerRecord<>(
-                    "reference-fps-sort-codes-1",
+                    "reference-fps-sort-codes-2",
+                    String.valueOf(i),
+                    "{\"data\":{\"sortCode\":\"" + i + "\",\"fpsEnabled\":true}}"));
+
+            System.out.println("No of records produced: " + i);
+        }*/
+
+        for (int i = 100000; i <= 5000000; i++) {
+            producer.send(new ProducerRecord<>(
+                    "reference-fps-sort-codes-2",
                     String.valueOf(i),
                     "{\"data\":{\"sortCode\":\"" + i + "\",\"fpsEnabled\":true}}"));
 

@@ -2,6 +2,7 @@ package com.lbg.config;
 
 import com.lbg.model.Event;
 import com.lbg.model.FPSPayment;
+import com.lbg.model.FPSPaymentEntity;
 import com.lbg.model.ReferenceFPSSortCode;
 import com.lbg.service.FPSPaymentConsumer;
 import com.lbg.service.FPSPaymentConsumerV2;

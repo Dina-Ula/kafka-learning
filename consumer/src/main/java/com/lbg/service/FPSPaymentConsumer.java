@@ -15,12 +15,5 @@ public class FPSPaymentConsumer extends ExceptionHandledEventConsumer<FPSPayment
     @Override
     public void consumeEvent(final Event<FPSPayment> event) {
         referenceDataValidator.validateReferenceFPSSortCode1(event.getData());
-/*        referenceDataValidator.validateReferenceFPSSortCode2(event.getData());
-        referenceDataValidator.validateReferenceFPSSortCode3(event.getData());
-        referenceDataValidator.validateReferenceFPSSortCode4(event.getData());
-        referenceDataValidator.validateReferenceFPSSortCode5(event.getData());
-        referenceDataValidator.validateReferenceFPSSortCode6(event.getData());
-        referenceDataValidator.validateReferenceFPSSortCode7(event.getData());
-        referenceDataValidator.validateReferenceFPSSortCode8(event.getData());*/
     }
 }
