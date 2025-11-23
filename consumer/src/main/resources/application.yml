@@ -6,11 +6,14 @@ spring.application.name: fpp
 
 #####  Admin Token #####
 
+# Confluent Local Common configuration
+spring.kafka.properties.bootstrap.servers: localhost:9092
+
 # Confluent Cloud Common configuration
-spring.kafka.properties.sasl.mechanism: PLAIN
-spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
-spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='RPJXOK3O3ONHZ64Y' password='pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO';
-spring.kafka.properties.security.protocol: SASL_SSL
+#spring.kafka.properties.sasl.mechanism: PLAIN
+#spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+#spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='XPC5QDUCFQ4N5VQW' password='Ji/v7IFe0SBSuWKXWlE4jzVoWWvf20K7TLQpzvJtESWdK/VPP3fMLcgtznBYsq6l';
+#spring.kafka.properties.security.protocol: SASL_SSL
 
 # Confluent Cloud Schema Registry configuration
 #spring.kafka.properties.basic.auth.credentials.source: USER_INFO
@@ -29,30 +32,35 @@ spring.kafka.properties.security.protocol: SASL_SSL
 #####  Read-Only SortCode1 Token #####
 
 #spring.cloud.function.definition: fpsPaymentV2
-#spring.cloud.function.definition: fpsPaymentV3
-spring.cloud.function.definition: fpsPaymentV1;referenceFpsSortCode1
+spring.cloud.function.definition: fpsPaymentV3
+#spring.cloud.function.definition: referenceFpsSortCode1
+#spring.cloud.function.definition: fpsPaymentV1;referenceFpsSortCode1;referenceFpsSortCode2
 #spring.cloud.function.definition: fpsPayment;fpsPaymentV2;referenceFpsSortCode1;referenceFpsSortCode2;referenceFpsSortCode3;referenceFpsSortCode4;referenceFpsSortCode5;referenceFpsSortCode6;referenceFpsSortCode7;referenceFpsSortCode8
 
 spring.cloud.stream.bindings.fpsPaymentV1-in-0.destination: fps-payment
 spring.cloud.stream.kafka.streams.binder.functions.fpsPaymentV1.applicationId: fpsPaymentV1
 spring.cloud.stream.kafka.streams.bindings.fpsPaymentV1-in-0.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
 
-spring.cloud.stream.bindings.fpsPaymentV2-in-0.destination: fps-payment
-spring.cloud.stream.bindings.fpsPaymentV2-in-1.destination: reference-fps-sort-codes-1
-spring.cloud.stream.kafka.streams.bindings.fpsPaymentV2-in-0.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
+spring.cloud.stream.bindings.fpsPaymentV2-in-0.destination: reference-fps-sort-codes-1
+spring.cloud.stream.bindings.fpsPaymentV2-in-1.destination: reference-fps-sort-codes-2
+spring.cloud.stream.bindings.fpsPaymentV2-in-2.destination: fps-payment
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV2-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
 spring.cloud.stream.kafka.streams.bindings.fpsPaymentV2-in-1.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
-spring.cloud.stream.kafka.streams.bindings.fpsPaymentV2-in-1.consumer.materializedAs: reference-fps-sort-codes-store-1
-spring.cloud.stream.kafka.streams.binder.functions.fpsPaymentV2.applicationId: fpsPaymentV2
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV2-in-2.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV2-in-0.consumer.materializedAs: reference-fps-sort-codes-store-1
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV2-in-1.consumer.materializedAs: reference-fps-sort-codes-store-2
+spring.cloud.stream.kafka.streams.binder.functions.fpsPaymentV2.applicationId: fpsPaymentV1
 
-spring.cloud.stream.bindings.fpsPaymentV3-in-0.destination: reference-fps-sort-codes-1
-spring.cloud.stream.bindings.fpsPaymentV3-in-1.destination: reference-fps-sort-codes-2
-spring.cloud.stream.bindings.fpsPaymentV3-in-2.destination: fps-payment
-spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-0.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+spring.cloud.stream.bindings.fpsPaymentV3-in-0.destination: fps-payment
+spring.cloud.stream.bindings.fpsPaymentV3-in-1.destination: reference-fps-sort-codes-1
+spring.cloud.stream.bindings.fpsPaymentV3-in-2.destination: reference-fps-sort-codes-2
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-0.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
 spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-1.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
-spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-2.consumer.valueSerde: com.lbg.serdes.FPSPaymentSerde
-spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-0.consumer.materializedAs: reference-fps-sort-codes-store-1
-spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-1.consumer.materializedAs: reference-fps-sort-codes-store-2
-spring.cloud.stream.kafka.streams.binder.functions.fpsPaymentV3.applicationId: fpsPaymentV3
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-2.consumer.valueSerde: com.lbg.serdes.SortCodeFPSSerde
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-1.consumer.materializedAs: reference-fps-sort-codes-store-1
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentV3-in-2.consumer.materializedAs: reference-fps-sort-codes-store-2
+spring.cloud.stream.kafka.streams.binder.functions.fpsPaymentV3.applicationId: fpsPaymentV1
+spring.cloud.stream.kafka.streams.binder.functions.fpsPaymentV3.configuration.commit.interval.ms: 1000
 
 spring.cloud.stream.bindings.referenceFpsSortCode1-in-0.destination: reference-fps-sort-codes-1
 spring.cloud.stream.kafka.streams.binder.functions.referenceFpsSortCode1.applicationId: reference-fps-sort-codes-1
@@ -69,3 +77,14 @@ spring.output.ansi.enabled: ALWAYS
 logging.pattern.console: "%clr(%d{HH:mm:ss.SSS}){blue} %clr(---){faint} %clr([%15.15t]){yellow} %clr(:){red} %clr(%m){faint}%n"
 
 management.endpoints.web.exposure.include: "*"
+#management.endpoint.loggers.enabled: true
+
+#management.endpoints.enabled-by-default: false
+management.endpoint.health.enabled: true
+management.endpoint.health.probes.enabled: true
+management.endpoint.health.group.liveness.additional-path: server:/livez
+management.endpoint.health.group.readiness.additional-path: server:/readyz
+management.endpoint.health.group.readiness.show-details: always
+management.endpoint.health.group.liveness.show-details: always
+
+management.endpoint.health.group.liveness.include: livenessState,binders

@@ -7,21 +7,37 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="producer" />
+        <module name="dlq-partition-assignment-strategy" />
         <module name="core" />
         <module name="dedupe" />
         <module name="consumer-db-kafka-template" />
+        <module name="consumer-group-offset" />
+        <module name="producer" />
+        <module name="simple-springboot-cache-kstream-consumer" />
+        <module name="simple-springboot-kstream-consumer" />
+        <module name="request-response-stateful-operation" />
         <module name="consumer" />
+        <module name="vanilla-request-response-stateful-operation" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="istio-loadbalancer" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="consumer" options="-parameters" />
       <module name="consumer-db-kafka-template" options="-parameters" />
+      <module name="consumer-group-offset" options="-parameters" />
       <module name="core" options="-parameters" />
       <module name="dedupe" options="-parameters" />
+      <module name="dlq-partition-assignment-strategy" options="-parameters" />
+      <module name="istio-loadbalancer" options="-parameters" />
       <module name="producer" options="-parameters" />
+      <module name="request-response-stateful-operation" options="-parameters" />
+      <module name="simple-springboot-cache-kstream-consumer" options="-parameters" />
+      <module name="simple-springboot-kstream-consumer" options="-parameters" />
+      <module name="vanilla-request-response-stateful-operation" options="-parameters" />
     </option>
   </component>
 </project>

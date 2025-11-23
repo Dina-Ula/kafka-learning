@@ -1,0 +1,64 @@
+#logging.level.org.springframework: debug
+
+spring.application.name: consumer-group-offset
+
+# Local
+#spring.kafka.properties.bootstrap.servers: 192.168.0.38:9092
+
+#####  Admin Token #####
+
+# Confluent Cloud Common configuration
+#spring.kafka.properties.sasl.mechanism: PLAIN
+#spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+#spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='RPJXOK3O3ONHZ64Y' password='pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO';
+#spring.kafka.properties.security.protocol: SASL_SSL
+
+spring:
+  output:
+    ansi:
+      enabled: ALWAYS
+  kafka:
+    ssl:
+      trust-store-location: "file:///Users/dina/Learning/Kafka/kafka-security-master/ssl/kafka.client.truststore.jks"
+      trust-store-password: "clientpass"
+      key-store-location: "file:///Users/dina/Learning/Kafka/kafka-security-master/ssl/kafka.client.keystore.jks"
+      key-store-password: "clientpass"
+    properties:
+      security:
+        protocol: "SASL_SSL"
+      sasl:
+        kerberos:
+          service:
+            name: "kafka"
+        jaas:
+          config: "com.sun.security.auth.module.Krb5LoginModule required useKeyTab=true storeKey=true keyTab='/Users/dina/Learning/Kafka/kafka-security-master/kerberos/writer.user.keytab' principal='writer@KAFKA.SECURE';"
+    bootstrap-servers: "ec2-3-10-136-23.eu-west-2.compute.amazonaws.com:9094"
+
+# Confluent Cloud Schema Registry configuration
+#spring.kafka.properties.basic.auth.credentials.source: USER_INFO
+#spring.kafka.properties.schema.registry.basic.auth.user.info: RPJXOK3O3ONHZ64Y:pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO
+#spring.kafka.properties.schema.registry.url: https://psrc-4j8q8.europe-west3.gcp.confluent.cloud
+
+##### Admin Token #####
+
+#####  Read-Only SortCode1 Token #####
+
+#spring.kafka.properties.sasl.mechanism: PLAIN
+#spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+#spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='3CBM27PABNOLFT2I' password='bohZYsGB0Hyy7DNsGRq4lfZY6FGqLEJJHZked8mgwnUaBGYSW3eNOG+nhrHrbw0m';
+#spring.kafka.properties.security.protocol: SASL_SSL
+
+#####  Read-Only SortCode1 Token #####
+
+spring.cloud.function.definition: fpsPaymentOffset
+spring.cloud.stream.bindings.fpsPaymentOffset-in-0.destination: fps-payment-offset
+spring.cloud.stream.kafka.streams.binder.functions.fpsPaymentOffset.applicationId: fpsPaymentOffset-100
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentOffset-in-0.producer.keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentOffset-in-0.consumer.valueSerde: org.apache.kafka.common.serialization.Serdes$BytesSerde
+#spring.cloud.stream.kafka.streams.bindings.fpsPaymentOffset-in-0.consumer.startOffset: earliest
+spring.cloud.stream.bindings.fpsPaymentOffset-out-0.destination: fps-payment-offset-output
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentOffset-out-0.producer.keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+spring.cloud.stream.kafka.streams.bindings.fpsPaymentOffset-out-0.producer.valueSerde: org.apache.kafka.common.serialization.Serdes$BytesSerde
+
+#spring.cloud.stream.kafka.binder.autoCreateTopics: true
+#spring.cloud.stream.kafka.binder.minPartitionCount: 6

@@ -1,20 +1,27 @@
 package com.lbg.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.sql.Blob;
-import java.sql.Date;
-
+@Data
 @Entity
+@NoArgsConstructor
+@Table(name = "fps_payment")
 public class FPSPaymentEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FPSPayment_SEQ")
-    @SequenceGenerator(sequenceName = "FPSPayment_seq", allocationSize = 1, name = "FPSPayment_SEQ")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-    private Blob fpsPayment;
+    @Column(name = "account_no")
+    private String accountNo;
 
-    @Column(name = "CREATED_DATE")
-    private Date date;
+    @Column(name = "sort_code")
+    private String sortCode;
+
+    public FPSPaymentEntity(String accountNo, String sortCode) {
+        this.accountNo = accountNo;
+        this.sortCode = sortCode;
+    }
 }

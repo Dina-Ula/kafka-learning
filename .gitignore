@@ -133,4 +133,7 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+istio-loadbalancer/log
+istio-loadbalancer/load-test
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij,maven

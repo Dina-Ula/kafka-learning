@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    stream:
+      kafka:
+        streams:
+          binder:
+            brokers: host.minikube.internal:9092
+      function:
+        definition: topology_3
+
+spring.cloud.stream.kafka.streams.binder.functions.topology_3.applicationId: topology_3
+spring.cloud.stream.bindings.topology_3-in-0.destination: acs.request.topic
+spring.cloud.stream.kafka.streams.bindings.topology_3-in-0.consumer.keySerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+spring.cloud.stream.kafka.streams.bindings.topology_3-in-0.consumer.valueSerde: com.lbg.serdes.ACSEventSerde

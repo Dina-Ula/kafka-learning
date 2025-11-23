@@ -13,7 +13,8 @@ public abstract class ExceptionHandledEventConsumer<T> implements EventConsumer<
             try {
                 consumeEvent(value);
             } catch (Exception e) {
-                System.out.println("Exception Handled Event Consumer: " + e);
+                System.out.println("Exception Handled Event Consumer");
+                throw e;
             }
         });
     }

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: consumer-group-offset
+  name: consumer-group-offset
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: consumer-group-offset
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: consumer-group-offset
+    spec:
+      containers:
+      - image: devinaction/consumer-group-offset
+        name: consumer-group-offset
+        resources: {}
+status: {}

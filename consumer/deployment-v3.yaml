@@ -10,7 +10,7 @@ spec:
   selector:
     matchLabels:
       app: fpp-v3
-  strategy: {}
+  strategy: { }
   template:
     metadata:
       creationTimestamp: null
@@ -18,7 +18,13 @@ spec:
         app: fpp-v3
     spec:
       containers:
-      - image: devinaction/fpp-v3
-        name: fpp-v3
-        resources: {}
-status: {}
+        - image: devinaction/consumer
+          name: fpp-v3
+          resources: { }
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 8081
+            periodSeconds: 5
+            failureThreshold: 2
+status: { }

@@ -11,8 +11,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>learning-confluent-kafka</groupId>
-    <artifactId>fpp</artifactId>
+    <groupId>com.lbg</groupId>
+    <artifactId>lbg_samples</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
@@ -23,11 +23,16 @@
         <module>consumer</module>
         <module>dedupe</module>
         <module>consumer-db-kafka-template</module>
+        <module>consumer-group-offset</module>
+        <module>request-response-stateful-operation</module>
+        <module>vanilla-request-response-stateful-operation</module>
+        <module>dlq-partition-assignment-strategy</module>
+        <module>simple-springboot-kstream-consumer</module>
+        <module>simple-springboot-cache-kstream-consumer</module>
     </modules>
 
     <properties>
-        <spring-cloud.version>2022.0.4</spring-cloud.version>
-        <java.version>17</java.version>
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
     </properties>
 
     <dependencyManagement>

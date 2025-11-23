@@ -1,0 +1,49 @@
+logging:
+  level:
+    org:
+      apache:
+        kafka:
+          clients:
+            consumer:
+              KafkaConsumer: DEBUG
+              internals:
+                AbstractCoordinator: DEBUG
+
+
+spring:
+  application:
+    name: "demo"
+    version: "1"
+  kafka:
+    bootstrap-servers: kafka1:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  cloud:
+    function:
+      definition: kafkaStreamConsumer
+    stream:
+      bindings:
+        kafkaStreamConsumer-in-0:
+          destination: my-topic
+      kafka:
+        streams:
+          binder:
+            consumer-properties:
+              retry.backoff: 12000
+              max.poll.interval.ms: 18000
+              partition:
+                assignment:
+                  strategy: org.apache.kafka.clients.consumer.RangeAssignor
+          bindings:
+            kafkaStreamConsumer-in-0:
+              consumer:
+                key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+                value-deserializer: org.apache.kafka.common.serialization.StringSerializer
+        binder:
+          configuration:
+            retry.backoff.ms: 70000
+          brokers: kafka1:29092
+          functions:
+            kafkaStreamConsumer:
+              applicationId: ${spring.application.name}

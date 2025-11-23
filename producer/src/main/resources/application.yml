@@ -1,20 +1,27 @@
 spring.application.name: fpp
 
-spring.kafka.properties.sasl.mechanism: PLAIN
-spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
-spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='RPJXOK3O3ONHZ64Y' password='pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO';
-spring.kafka.properties.security.protocol: SASL_SSL
+# Confluent Local Common configuration
+spring.kafka.properties.bootstrap.servers: localhost:9092
 
-# Confluent Cloud Schema Registry configuration
-spring.kafka.properties.basic.auth.credentials.source: USER_INFO
-spring.kafka.properties.schema.registry.basic.auth.user.info: RPJXOK3O3ONHZ64Y:pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO
-spring.kafka.properties.schema.registry.url: https://psrc-4j8q8.europe-west3.gcp.confluent.cloud
+# Confluent Cloud Common configuration
+#spring.kafka.properties.sasl.mechanism: PLAIN
+#spring.kafka.properties.bootstrap.servers: pkc-l6wr6.europe-west2.gcp.confluent.cloud:9092
+#spring.kafka.properties.sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='XPC5QDUCFQ4N5VQW' password='Ji/v7IFe0SBSuWKXWlE4jzVoWWvf20K7TLQpzvJtESWdK/VPP3fMLcgtznBYsq6l';
+#spring.kafka.properties.security.protocol: SASL_SSL
+
+#Confluent Cloud Schema Registry configuration
+#spring.kafka.properties.basic.auth.credentials.source: USER_INFO
+#spring.kafka.properties.schema.registry.basic.auth.user.info: RPJXOK3O3ONHZ64Y:pJds8EAHUSrMXMp/HawHGDMGZtde7XcUbcKaEs1gcWKJDUAY+8zsptc+mE3ErdBO
+#spring.kafka.properties.schema.registry.url: https://psrc-4j8q8.europe-west3.gcp.confluent.cloud
 
 #spring.cloud.function.definition: referenceFPSSortCodesSupplier1;referenceFPSSortCodesSupplier2;referenceFPSSortCodesSupplier3;referenceFPSSortCodesSupplier4;referenceFPSSortCodesSupplier5;referenceFPSSortCodesSupplier6;referenceFPSSortCodesSupplier7;referenceFPSSortCodesSupplier8;fpsPaymentSupplier
-spring.cloud.function.definition: referenceFPSSortCodesSupplier1;fpsPaymentSupplier;fpsPaymentInboundSupplier;fpsPaymentOutboundSupplier
+spring.cloud.function.definition: acsRequestTransactions;mqResponseTransactions;referenceFPSSortCodesSupplier1;fpsPaymentSupplier;fpsPaymentInboundSupplier;fpsPaymentOutboundSupplier
 
-spring.cloud.stream.bindings.referenceFPSSortCodesSupplier1-out-0.destination: reference-fps-sort-codes-1
-spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier1-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+spring.cloud.stream.bindings.acsRequestTransactions-out-0.destination: acs.request.transactions.topic
+spring.cloud.stream.kafka.bindings.acsRequestTransactions-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+
+spring.cloud.stream.bindings.mqResponseTransactions-out-0.destination: mq.response.transactions.topic
+spring.cloud.stream.kafka.bindings.mqResponseTransactions-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
 
 spring.cloud.stream.bindings.referenceFPSSortCodesSupplier2-out-0.destination: reference-fps-sort-codes-2
 spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier2-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -27,6 +34,9 @@ spring.cloud.stream.kafka.bindings.fpsPaymentInboundSupplier-out-0.producer.conf
 
 spring.cloud.stream.bindings.fpsPaymentOutboundSupplier-out-0.destination: fps-payment-outbound
 spring.cloud.stream.kafka.bindings.fpsPaymentOutboundSupplier-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
+
+spring.cloud.stream.bindings.referenceFPSSortCodesSupplier1-out-0.destination: reference-fps-sort-codes-1
+spring.cloud.stream.kafka.bindings.referenceFPSSortCodesSupplier1-out-0.producer.configuration.key.serializer: org.apache.kafka.common.serialization.StringSerializer
 
 spring.output.ansi.enabled: ALWAYS
 

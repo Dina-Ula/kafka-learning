@@ -1,8 +1,6 @@
 package com.lbg;
 
-import com.lbg.model.Event;
-import com.lbg.model.FPSPayment;
-import com.lbg.model.ReferenceFPSSortCode;
+import com.lbg.model.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +16,7 @@ public class App {
 
     private static final boolean GENERATE_SORT_CODES = false;
 
-    private static final boolean GENERATE_PAYMENTS = true;
+    private static final boolean GENERATE_PAYMENTS = false;
 
     private static final boolean GENERATE_PAYMENTS_INBOUND = false;
 
@@ -63,7 +61,7 @@ public class App {
         List<Event<FPSPayment>> list = new ArrayList<>();
 
         if (GENERATE_PAYMENTS_INBOUND) {
-            for (int i = 0; i < 200000; i++) {
+            for (int i = 0; i < 1; i++) {
                 list.add(Event.of(new FPSPayment(UUID.randomUUID().toString(), getRandomAccountNo(), getRandomSortCode(), getRandomAmount(), "23-11-2023", "1")));
             }
         }
@@ -179,6 +177,78 @@ public class App {
                         .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(fpsPaymentsOutbound.poll()).getData().getId())
                         .build();
                 System.out.println("FPS Payment Outbound: " + o.getPayload());
+                return o;
+            } else {
+                return null;
+            }
+        };
+    }
+
+    private static final boolean GENERATE_ACS_REQUEST_TRANSACTIONS = true;
+
+    LinkedList<Event<ACSEvent>> acsRequestTransactions = new LinkedList<>(generateAcsRequestTransactions());
+
+    public static List<Event<ACSEvent>> generateAcsRequestTransactions() {
+
+        List<Event<ACSEvent>> list = new ArrayList<>();
+
+        if (GENERATE_ACS_REQUEST_TRANSACTIONS) {
+            for (int i = 1; i < 30000; i++) {
+                list.add(new Event<>("acs_request_transactions", new ACSEvent(String.valueOf(i))));
+            }
+        }
+
+        return list;
+    }
+
+    @Bean
+    public Supplier<Message<Event<ACSEvent>>> acsRequestTransactions() {
+        return () -> {
+            if (acsRequestTransactions.peek() != null) {
+                Message<Event<ACSEvent>> o = MessageBuilder
+                        .withPayload(acsRequestTransactions.peek())
+                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(acsRequestTransactions.poll()).getData().getData())
+                        .build();
+                System.out.println("ACS Request Transactions: " + o.getPayload());
+                return o;
+            } else {
+                return null;
+            }
+        };
+    }
+
+    private static final boolean GENERATE_MQ_RESPONSE_TRANSACTIONS = false;
+    LinkedList<Event<MQEvent>> mqResponseTransactions = new LinkedList<>(generateMqResponseTransactions());
+
+    public static List<Event<MQEvent>> generateMqResponseTransactions() {
+
+        List<Event<MQEvent>> list = new ArrayList<>();
+
+        if (GENERATE_MQ_RESPONSE_TRANSACTIONS) {
+            for (int i = 1; i < 30000; i++) {
+                list.add(new Event<>("mq_request_transactions", new MQEvent("", String.valueOf(i))));
+            }
+        }
+
+        return list;
+    }
+
+    @Bean
+    public Supplier<Message<Event<MQEvent>>> mqResponseTransactions() {
+        return () -> {
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            if (mqResponseTransactions.peek() != null) {
+                Message<Event<MQEvent>> o = MessageBuilder
+                        .withPayload(mqResponseTransactions.peek())
+                        .setHeader(KafkaHeaders.KEY, Objects.requireNonNull(mqResponseTransactions.poll()).getData().getTargetData() + "-mq")
+                        .build();
+                System.out.println("MQ Request Transactions: " + o.getPayload());
                 return o;
             } else {
                 return null;

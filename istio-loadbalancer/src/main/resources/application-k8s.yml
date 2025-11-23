@@ -1,0 +1,53 @@
+logging:
+  level:
+    org:
+      apache:
+        kafka: TRACE
+  file:
+    name: /tmp/istio-loadbalancer/log/app.log
+    max-history: 100
+    max-size: 50MB
+  pattern:
+    console: '%clr(%d{HH:mm:ss.SSS}){blue} %clr(---){faint} %clr([%15.15t]){yellow} %clr(:){red} %clr(%m){faint}%n'
+  output:
+    ansi:
+      enabled: ALWAYS
+
+spring:
+  kafka:
+    bootstrap-servers: 'host.minikube.internal:8093,host.minikube.internal:8094,host.minikube.internal:8095,host.minikube.internal:8096,host.minikube.internal:8097,host.minikube.internal:8098,host.minikube.internal:8099'
+  cloud:
+    function:
+      definition: transactions
+    stream:
+      bindings:
+        transactions-in-0:
+          destination: transactions.in.topic
+      kafka:
+        streams:
+          bindings:
+            transactions-in-0:
+              consumer:
+                configuration:
+                  application.id: transactions
+
+management:
+  server:
+    port: 8088
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    enabled-by-default: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        liveness:
+          additional-path: server:/livez
+          show-details: always
+          include: livenessState
+        readiness:
+          additional-path: server:/readyz
+          show-details: always

@@ -40,12 +40,13 @@ public class AppConfig {
         return new FPSPaymentConsumerV2(referenceDataValidator);
     }
 
-    @Bean
+    /*@Bean
     public Function<GlobalKTable<String, Event<ReferenceFPSSortCode>>,
             Function<GlobalKTable<String, Event<ReferenceFPSSortCode>>,
-                    Consumer<KStream<byte[], Event<FPSPayment>>>>> fpsPaymentV3(ReferenceDataValidator referenceDataValidator) {
-        return p -> g1 -> g2 -> {
-            g2.peek((key, value) -> {
+                    Consumer<KStream<byte[], Event<FPSPayment>>>>> fpsPaymentV2(ReferenceDataValidator referenceDataValidator) {
+        //return new FPSPaymentConsumerV3(referenceDataValidator);
+        *//*return p -> g1 -> g2 -> {
+            p.peek((key, value) -> {
                 System.out.println("Event consumed: " + value);
             }).foreach((key, value) -> {
                 try {
@@ -55,6 +56,32 @@ public class AppConfig {
                     System.out.println("Exception Handled Event Consumer: " + e);
                 }
             });
+        };*//*
+        return p -> g1 -> g2 -> {
+            new FPSPaymentConsumer(referenceDataValidator);
+        };
+    }*/
+
+
+    @Bean
+    public Function<KStream<byte[], Event<FPSPayment>>,
+            Function<GlobalKTable<String, Event<ReferenceFPSSortCode>>,
+                    Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>>>> fpsPaymentV3(ReferenceDataValidator referenceDataValidator) {
+        //return new FPSPaymentConsumerV3(referenceDataValidator);
+        /*return p -> g1 -> g2 -> {
+            p.peek((key, value) -> {
+                System.out.println("Event consumed: " + value);
+            }).foreach((key, value) -> {
+                try {
+                    referenceDataValidator.validateReferenceFPSSortCode1(value.getData());
+                    referenceDataValidator.validateReferenceFPSSortCode2(value.getData());
+                } catch (Exception e) {
+                    System.out.println("Exception Handled Event Consumer: " + e);
+                }
+            });
+        };*/
+        return p -> g1 -> g2 -> {
+            new FPSPaymentConsumer(referenceDataValidator).accept(p);
         };
     }
 
@@ -74,48 +101,6 @@ public class AppConfig {
     public Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>> referenceFpsSortCode2() {
         return referenceFPSSortCode2 -> {
             System.out.println(referenceFPSSortCode2.queryableStoreName());
-        };
-    }
-
-    @Bean
-    public Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>> referenceFpsSortCode3() {
-        return referenceFPSSortCode3 -> {
-            System.out.println(referenceFPSSortCode3.queryableStoreName());
-        };
-    }
-
-    @Bean
-    public Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>> referenceFpsSortCode4() {
-        return referenceFPSSortCode4 -> {
-            System.out.println(referenceFPSSortCode4.queryableStoreName());
-        };
-    }
-
-    @Bean
-    public Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>> referenceFpsSortCode5() {
-        return referenceFPSSortCode5 -> {
-            System.out.println(referenceFPSSortCode5.queryableStoreName());
-        };
-    }
-
-    @Bean
-    public Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>> referenceFpsSortCode6() {
-        return referenceFPSSortCode6 -> {
-            System.out.println(referenceFPSSortCode6.queryableStoreName());
-        };
-    }
-
-    @Bean
-    public Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>> referenceFpsSortCode7() {
-        return referenceFPSSortCode7 -> {
-            System.out.println(referenceFPSSortCode7.queryableStoreName());
-        };
-    }
-
-    @Bean
-    public Consumer<GlobalKTable<String, Event<ReferenceFPSSortCode>>> referenceFpsSortCode8() {
-        return referenceFPSSortCode8 -> {
-            System.out.println(referenceFPSSortCode8.queryableStoreName());
         };
     }
 }

@@ -2,11 +2,19 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/consumer-db-kafka-template/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/consumer-group-offset/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/consumer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/core/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/dedupe/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/dlq-partition-assignment-strategy/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/istio-loadbalancer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/producer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/request-response-stateful-operation/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/request-response-stateful-operation/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/simple-springboot-cache-kstream-consumer/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/simple-springboot-kstream-consumer/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/vanilla-request-response-stateful-operation/src/main/java" charset="UTF-8" />
   </component>
 </project>

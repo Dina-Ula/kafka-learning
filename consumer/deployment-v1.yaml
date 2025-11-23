@@ -6,11 +6,12 @@ metadata:
     app: fpp-v1
   name: fpp-v1
 spec:
-  replicas: 2
+  replicas: 5
   selector:
     matchLabels:
       app: fpp-v1
-  strategy: {}
+  strategy: { }
+  minReadySeconds: 120
   template:
     metadata:
       creationTimestamp: null
@@ -18,7 +19,25 @@ spec:
         app: fpp-v1
     spec:
       containers:
-      - image: devinaction/fpp-v1
-        name: fpp-v1
-        resources: {}
-status: {}
+        - image: devinaction/fpp-v3
+          name: fpp-v1
+          resources: { }
+          startupProbe:
+            httpGet:
+              path: /livez
+              port: 8081
+            periodSeconds: 10
+            failureThreshold: 12
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+            periodSeconds: 5
+            failureThreshold: 2
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: 8081
+            periodSeconds: 5
+            failureThreshold: 2
+status: { }
